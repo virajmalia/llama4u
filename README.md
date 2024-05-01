@@ -7,5 +7,5 @@
 
 ## Steps to run
 1. `sudo apt install python3-pip`
-2. `./gpu_setup.sh`
+2. `./setup.sh`
 3. `./llm.py`

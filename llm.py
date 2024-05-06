@@ -1,32 +1,39 @@
-#!/usr/bin/python3
+#!/bin/env python3
+import sys
 from llama_cpp import Llama
-from huggingface_hub import hf_hub_download
 
-## Download the GGUF model
-model_name = "QuantFactory/Meta-Llama-3-8B-Instruct-GGUF"
-model_file = "Meta-Llama-3-8B-Instruct.Q3_K_S.gguf"
-model_path = hf_hub_download(model_name, filename=model_file)
+if len(sys.argv) < 2:
+    print('Usage: ./llm.py <model_dir>')
+    exit(1)
+model_dir = sys.argv[1]
+model_name='llama-3-8b-instruct.Q3_K_M.gguf'
+
+local_model = Llama.from_pretrained(repo_id='PawanKrd/Meta-Llama-3-8B-Instruct-GGUF', filename=model_name, local_dir=model_dir)
 
 ## Instantiate model from downloaded file
 llm = Llama(
-    model_path=model_path,
-    n_gpu_layers=-1,        # Number of model layers to offload to GPU
+    n_gpu_layers=-1,
+    max_new_tokens=2048,
+    model_path=model_dir+'/'+model_name
 )
 
-## Generation kwargs
-generation_kwargs = {
-    "max_tokens":20000,
-    "stop":["</s>"],
-    "echo":True, # Echo the prompt in the output
-    "temperature":0.3
-}
-
 ## Chat session loop
-while True:
-    user_prompt = input("You: ")
+my_messages = [
+    {"role": "system", "content": "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions."},
+]
+
+msg_count=0         # 1 msg_count includes 1 msg from the user and 1 msg from the aassistant
+max_msg_count=50    # This limits the chat to max_msg_count*2 messages total.
+while msg_count < max_msg_count:
+    msg_count+=1
+    print('You: =====')
+    user_prompt = input()
     if user_prompt.lower() in ["exit", "quit", "bye"]:
         print("Chat session ended. Goodbye!")
         break
-    res = llm(user_prompt, **generation_kwargs) # Res is a dictionary
-    generated_text = res["choices"][0]["text"]
-    print(f"Model: {generated_text}")
+    my_messages.append({"role": "user", "content": user_prompt})
+
+    response = llm.create_chat_completion(messages=my_messages)
+    assistant_output = response["choices"][0]["message"]["content"]
+    print('Assistant: =====')
+    print(assistant_output)

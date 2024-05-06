@@ -8,4 +8,4 @@
 ## Steps to run
 1. `sudo apt install python3-pip`
 2. `./setup.sh`
-3. `./llm.py`
+3. `./llm.py <local_model_dir>`

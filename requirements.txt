@@ -1,3 +1,11 @@
+# LLM essentials
 huggingface_hub
 llama-cpp-python
 tensorflow[and-cuda]
+
+# Web Retriever
+langchain
+lanchain-chroma
+lanchain-nomic
+sentence-transformers
+duckduckgo_search

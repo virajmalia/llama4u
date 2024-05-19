@@ -1,6 +1,8 @@
 #!/bin/env python3
-import sys
 from llama_cpp import Llama
+from math import exp
+from statistics import median
+import sys
 
 if len(sys.argv) < 2:
     print('Usage: ./llm.py <model_dir>')
@@ -14,7 +16,8 @@ local_model = Llama.from_pretrained(repo_id='PawanKrd/Meta-Llama-3-8B-Instruct-G
 llm = Llama(
     n_gpu_layers=-1,
     max_new_tokens=2048,
-    model_path=model_dir + '/' + model_name
+    model_path=model_dir + '/' + model_name,
+    logits_all=True,
 )
 
 # Chat session loop
@@ -27,6 +30,7 @@ max_msg_count = 50     # This limits the chat to max_msg_count*2 messages total.
 while msg_count < max_msg_count:
     msg_count+=1
 
+    # User's turn
     print('You: =====')
     user_prompt = input()
     if user_prompt.lower() in ["exit", "quit", "bye"]:
@@ -34,7 +38,19 @@ while msg_count < max_msg_count:
         break
     my_messages.append({"role": "user", "content": user_prompt})
 
-    response = llm.create_chat_completion(messages=my_messages)
-    assistant_output = response["choices"][0]["message"]["content"]
-    print('Assistant: =====')
-    print(assistant_output)
+    # AI's turn
+    response = llm.create_chat_completion(messages=my_messages,
+                                          logprobs=True,
+                                          top_logprobs=1
+                                          )
+    logprobs = response["choices"][0]["logprobs"]["token_logprobs"]
+    # Convert logprobs to probabilities
+    probabilities = [exp(logprob) for logprob in logprobs]
+    print(f'Assistant(Median Prob:{median(probabilities)}): =====')
+    print(response["choices"][0]["message"]["content"])
+
+#### Use cases ####
+# 1. User input is vague or small
+# 2. User input is clear, but the model cannot find an answer, and it is sure about it.
+# 3. User input is clear, but the model cannot find an answer, and cannot determine so. (hallucinate?)
+# 4. User input is very verbose.

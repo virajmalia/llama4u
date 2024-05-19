@@ -9,7 +9,8 @@ export PATH=/usr/local/cuda-12/bin:~/.local/bin:${PATH}
 export CUDACXX=$(which nvcc)
 if -z $CUDACXX; then
     echo "nvcc not found in PATH."
-    exit(1)
+    exit /b 1
+fi
 echo $CUDACXX && $CUDACXX --version
 
 # project dependencies

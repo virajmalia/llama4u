@@ -1,11 +1,10 @@
 # LLM essentials
 huggingface_hub
-llama-cpp-python
+llama-cpp-python -C cmake.args="-DLLAMA_CUDA=on"
 tensorflow[and-cuda]
 
 # Web Retriever
 langchain
+langchain-community
 lanchain-chroma
-lanchain-nomic
-sentence-transformers
 duckduckgo_search

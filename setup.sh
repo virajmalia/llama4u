@@ -14,6 +14,7 @@ fi
 echo $CUDACXX && $CUDACXX --version
 
 # project dependencies
+sudo apt install python3-pip
 pip install -r requirements.txt
 
 # GPU device verification

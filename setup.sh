@@ -18,9 +18,3 @@ fi
 # project dependencies
 sudo apt install python3-pip
 pip install -r requirements.txt
-
-if [ "$1" != "cpu" ]; then
-    # GPU device verification
-    # If not using GPU, comment or ignore this check and also remove tensorflow from requirements.txt
-    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))" 2> /dev/null
-fi

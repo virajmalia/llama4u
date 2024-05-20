@@ -8,6 +8,9 @@ if len(sys.argv) < 2:
     print('Usage: ./llm.py <model_dir>')
     exit(1)
 model_dir = sys.argv[1]
+if len(sys.argv) == 3:
+    single_query_mode = True
+    query_str = sys.argv[2]
 model_name='llama-3-8b-instruct.Q3_K_M.gguf'
 
 local_model = Llama.from_pretrained(repo_id='PawanKrd/Meta-Llama-3-8B-Instruct-GGUF', filename=model_name, local_dir=model_dir)
@@ -19,6 +22,18 @@ llm = Llama(
     model_path=model_dir + '/' + model_name,
     logits_all=True,
 )
+
+if single_query_mode:
+    response = llm.create_chat_completion([{"role": "user", "content": query_str}],
+                                          logprobs=True,
+                                          top_logprobs=1,
+                                          )
+    if response:
+        print(response)
+        exit(0)
+    else:
+        print("Query failed")
+        exit(1)
 
 # Chat session loop
 my_messages = [

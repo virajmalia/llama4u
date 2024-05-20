@@ -1,4 +1,5 @@
 # The Llama4U Project
+[![Python application](https://github.com/virajmalia/llama4u/actions/workflows/CI.yml/badge.svg)](https://github.com/virajmalia/llama4u/actions/workflows/CI.yml)
 
 ## Vision
 Develop a free and open source, fully-featured AI solution with agents.

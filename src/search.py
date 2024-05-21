@@ -6,8 +6,9 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class Search():
-    def __init__(self, input):
-        self.query = input
+    """ Search class to perform online search using DuckDuckGo """
+    def __init__(self, query_str):
+        self.query = query_str
         self.embedding = HuggingFaceEmbeddings(model_name='multi-qa-MiniLM-L6-cos-v1')
         # Split the output to keep small sized chunks
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
@@ -22,11 +23,12 @@ class Search():
         loader = WebBaseLoader(urls)
         self.data = loader.load()
         self.data_split = self.splitter.split_documents(self.data)
-        
+
         # Create a VectorDB from the DDG search results
         self.vectordb = Chroma.from_documents(documents=self.data_split, embedding=self.embedding)
 
     def retrieve(self, db_query):
+        """ Retrieve results of the search operation from the vectordb """
         # Use the vectorDB as a retriever
         retriever = self.vectordb.as_retriever()
 

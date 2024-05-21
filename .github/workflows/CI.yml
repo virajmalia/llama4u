@@ -28,7 +28,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set device type to CPU for CI
       run: |
-        sed -i s/"llama-cpp-python.*"/"llama-cpp-python"/g pyproject.toml
+        sed -i s/"llama-cpp-python.*"/"llama-cpp-python\",/g pyproject.toml
         cat pyproject.toml
     - name: Lint with flake8
       run: |

@@ -1,4 +1,5 @@
-#!/bin/env python3
+""" Llama4U """
+import importlib.metadata
 import sys
 import argparse
 from math import exp
@@ -43,7 +44,7 @@ class Llama4U():
             print(colored('You: =====', 'yellow'))
             user_prompt = input()
             if user_prompt.lower() in ["exit", "quit", "bye"]:
-                print(colored(f'Assistant(Median Prob:1.0): =====', 'yellow'))
+                print(colored('Assistant(Median Prob:1.0): =====', 'yellow'))
                 print("Chat session ended. Goodbye!")
                 break
             my_messages.append({"role": "user", "content": user_prompt})
@@ -85,13 +86,15 @@ def suppress_stderr():
 
 def parse_arguments():
     """ parse input arguments """
-    parser = argparse.ArgumentParser(description='Llama4U Input Parser')
+    version = importlib.metadata.version('Llama4U')
+    parser = argparse.ArgumentParser(description=f'Llama4U v{version}')
     parser.add_argument('-r', '--repo_id', type=str, required=False, help='Repository ID')
     parser.add_argument('-f', '--filename', type=str, required=False, help='Filename')
     parser.add_argument('-q', '--query', type=str, required=False, help='Single Query')
     return parser.parse_args()
 
-if __name__ == '__main__':
+def main():
+    """ Pip Package entrypoint """
     args = parse_arguments()
     repo_id = args.repo_id
     filename = args.filename
@@ -103,3 +106,6 @@ if __name__ == '__main__':
             llama4u.single_query(args.query)
         else:
             llama4u.start_chat_session()
+
+if __name__ == '__main__':
+    main()

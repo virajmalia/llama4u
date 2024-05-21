@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llama4u"
+version = "0.1"
+authors = [
+    {name = "Viraj Malia", email="virajmalia@gmail.com"}
+]
+description = '''
+    Llama4U is a free AI solution that can be hosted locally, while providing online capabilities in a responsible and user-controllable way.
+'''
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "huggingface_hub",
+    "llama-cpp-python @ https://github.com/abetlen/llama-cpp-python/releases/download/v0.2.75-cu124/llama_cpp_python-0.2.75-cp310-cp310-linux_x86_64.whl",
+    "langchain",
+    "langchain-community",
+    "langchain-chroma",
+    "duckduckgo_search",
+    "termcolor"
+]
+
+[project.scripts]
+llama4u = "llama4u:main"
+
+[project.urls]
+"Homepage" = "https://github.com/virajmalia/llama4u"
+"Bug Tracker" = "https://github.com/virajmalia/llama4u/issues"

@@ -1,4 +1,4 @@
-#!/bin/env python3
+""" search.py for Llama4U """
 from duckduckgo_search import DDGS
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import WebBaseLoader

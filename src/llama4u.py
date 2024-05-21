@@ -1,5 +1,4 @@
 """ Llama4U """
-#!/bin/env python3
 import importlib.metadata
 import sys
 import argparse

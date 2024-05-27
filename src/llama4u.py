@@ -88,11 +88,14 @@ class Llama4U():
             model_filename='llama-3-8b-instruct.Q3_K_M.gguf'
         self.model_path = hf_hub_download(repo_id=self.hf_repo_id, filename=model_filename)
 
+        # Initialize LLM
         self.llm = LlamaCpp(
             model_path=self.model_path,
             **self.model_kwargs,
         )
 
+        # Initialize Conversation "Chain"
+        # using our LLM, chat template and config params
         self.conversation_chain = ConversationChain(
                 llm=self.llm,
                 prompt=self.chat_template,
@@ -131,7 +134,7 @@ class Llama4U():
 
 @contextmanager
 def suppress_stderr(verbose):
-    """A context manager that redirects stderr to devnull"""
+    """A context manager that redirects stderr to devnull based on verbose selection """
     if verbose <= 0:
         with open(devnull, 'w', encoding='utf-8') as fnull:
             with redirect_stderr(fnull) as err:

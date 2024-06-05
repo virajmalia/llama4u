@@ -9,7 +9,7 @@ Develop a free and open source, fully-featured AI solution with agents.
 - ChatGPT/GPT4o
 
 ## Rule
-- APIs that have usage limitations or require keys to be registered with an online account are not permitted to be added to this project.
+- APIs that have usage limitations or require keys to be registered with an online account won't be added to this project.
 
 ## System requirements
 - Powerful CPU or Nvidia GPU (>=8G VRAM)
@@ -33,23 +33,20 @@ echo $CUDACXX && $CUDACXX --version
 ```
 
 ## Steps to run
-1. `pip install -e .`
-2. `llama4u`
-
-    Default model: https://huggingface.co/PawanKrd/Meta-Llama-3-8B-Instruct-GGUF/blob/main/llama-3-8b-instruct.Q3_K_M.gguf
+1. Host `llama3` model from [Ollama][1] on your computer
+2. `pip install -e .`
+3. `llama4u`
 
 `llama4u --help` for full CLI
 
 ## Description
-Llama4U is an AI assistant developed using [LlamaCPP][1], [LangChain][2] and [Llama3][3]. A completely free AI solution that can be hosted locally, while providing online capabilities in a responsible and user-controllable way.
+Llama4U is an AI assistant developed using [Ollama][1], [LangChain][2] and [Llama3][3]. A completely free AI solution that can be hosted locally, while providing online capabilities in a responsible and user-controllable way.
 
 ## Credits
 - Meta, for the open source Llama models
-- HuggingFace community
-- LlamaCPP and llama-cpp-python communities
+- Ollama
 - LangChain community
 
-
-[1]: https://github.com/abetlen/llama-cpp-python
+[1]: https://github.com/ollama/ollama
 [2]: https://python.langchain.com/v0.1/docs/get_started/introduction/
 [3]: https://huggingface.co/blog/llama3

@@ -25,10 +25,13 @@ jobs:
     - name: Install dependencies
       run: |
         pip install flake8
+        curl -fsSL https://ollama.com/install.sh | sudo -E sh
+        ollama serve &
+        sleep 5
+        # This endpoint blocks until ready
+        time curl -i http://localhost:11434
+        ollama run llama3
     - uses: actions/checkout@v4
-    - name: Set device type to CPU for CI
-      run: |
-        sed -i s/\"llama-cpp-python.*\"/\"llama-cpp-python\"/g pyproject.toml
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names

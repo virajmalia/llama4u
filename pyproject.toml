@@ -19,14 +19,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "huggingface_hub",
-    "llama-cpp-python @ https://github.com/abetlen/llama-cpp-python/releases/download/v0.2.75-cu124/llama_cpp_python-0.2.75-cp310-cp310-linux_x86_64.whl",
-    "llama-index-llms-llama-cpp",
-    "llama-index-embeddings-huggingface",
-    "llama-index-embeddings-langchain",
+    "ollama",
     "langchain",
+    "langchain-core",
     "langchain-community",
-    "sentence-transformers",
     "langchain-chroma",
     "duckduckgo_search",
     "termcolor"

@@ -24,7 +24,7 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
-        pip install flake8
+        pip install ollama flake8
     - uses: actions/checkout@v4
     - name: Set device type to CPU for CI
       run: |
@@ -37,5 +37,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build and Run
       run: |
+        ollama run llama3
         pip install -e .
         llama4u -q "Which is the best Llama model to use?"

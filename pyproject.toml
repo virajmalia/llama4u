@@ -19,7 +19,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "ollama",
     "langchain",
     "langchain-core",
     "langchain-community",

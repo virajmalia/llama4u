@@ -25,10 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install ollama flake8
+        $(which ollama) run llama3
     - uses: actions/checkout@v4
-    - name: Set device type to CPU for CI
-      run: |
-        sed -i s/\"llama-cpp-python.*\"/\"llama-cpp-python\"/g pyproject.toml
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -37,6 +35,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build and Run
       run: |
-        ollama run llama3
         pip install -e .
         llama4u -q "Which is the best Llama model to use?"

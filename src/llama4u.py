@@ -3,6 +3,7 @@ import asyncio
 from termcolor import colored
 from langchain_community.chat_models.ollama import ChatOllama
 from langchain_community.chat_message_histories.in_memory import ChatMessageHistory
+from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from input.input import parse_arguments
@@ -46,9 +47,17 @@ class Llama4U():
     async def chat_session(self):
         """ Chat session with history """
         while True:
+            # Get input
             print(colored('>>> ', 'yellow'), end="")
             user_prompt = input()
 
+            # Redirect search queries
+            if user_prompt.startswith("/search"):
+                search_results = DuckDuckGoSearchRun().run(user_prompt.replace("/search", ""))
+                user_prompt = \
+                f"Summarize the following search results as if you are answering:{search_results}"
+
+            # Invoke chain
             response = self.with_msg_history.invoke(
                 {"input": user_prompt},
                 config={"configurable": {"session_id": "abc123"}},

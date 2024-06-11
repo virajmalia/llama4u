@@ -42,7 +42,7 @@ def format_input(input_data: ChatHistory):
         elif isinstance(message, AIMessage):
             msg_history.append({"role": "assistant", "content": message.content})
 
-    input_data = {"input": msg_history, "msg_history": msg_history}
+    input_data = {"input": msg_history}
 
     return input_data
 

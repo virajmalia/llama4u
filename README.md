@@ -8,10 +8,18 @@ Llama4U is a privacy-focused AI assistant developed using [Ollama][1], [LangChai
 ## Steps to run
 1. Host `llama3` model from [Ollama][1] on your computer.
 2. Clone this repository.
-3. `pip install -e .`
-4. `llama4u`
 
-`llama4u --help` for full CLI.
+There are 2 usage modes:
+
+### LangServe
+3. `pip install -U langchain-cli && langchain serve`
+4. The default server is hosted on `127.0.0.1` or `localhost` and port `8000`.
+5. Playground can be accessed at `<host_ip>:<port>/llama4u/playground`.
+
+### CLI
+3. `cd app/ && pip install -e .`
+4. `llama4u`
+5. `llama4u --help` for full CLI.
 
 ## List of chat commands
 

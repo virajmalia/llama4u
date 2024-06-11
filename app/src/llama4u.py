@@ -6,7 +6,7 @@ from langchain_community.chat_message_histories.in_memory import ChatMessageHist
 from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from input.input import parse_arguments
+from app.src.input.input import parse_arguments
 
 LLAMA4U_STR = 'Llama4U'
 

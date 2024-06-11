@@ -1,34 +1,23 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "llama4u"
-version = "0.1"
-authors = [
-    {name = "Viraj Malia", email="virajmalia@gmail.com"}
-]
-description = '''
-    Llama4U is a free AI solution that can be hosted locally, while providing online capabilities in a responsible and user-controllable way.
-'''
+[tool.poetry]
+name = "llama4u-server"
+version = "0.1.0"
+description = ""
+authors = ["Viraj Malia virajmalia@gmail.com"]
 readme = "README.md"
-requires-python = ">=3.7"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: MIT License",
-    "Operating System :: OS Independent",
-]
-dependencies = [
-    "langchain",
-    "langchain-core",
-    "langchain-community",
-    "langchain-chroma",
-    "termcolor"
+packages = [
+    { include = "app" },
 ]
 
-[project.scripts]
-llama4u = "llama4u:main"
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = "^0.23.2"
+langserve = {extras = ["server"], version = ">=0.0.30"}
+pydantic = "<2"
 
-[project.urls]
-"Homepage" = "https://github.com/virajmalia/llama4u"
-"Bug Tracker" = "https://github.com/virajmalia/llama4u/issues"
+
+[tool.poetry.group.dev.dependencies]
+langchain-cli = ">=0.0.15"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

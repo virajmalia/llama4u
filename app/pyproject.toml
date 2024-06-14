@@ -23,7 +23,10 @@ dependencies = [
     "langchain-core",
     "langchain-community",
     "langchain-chroma",
-    "termcolor"
+    "lark",
+    "termcolor",
+    "playwright",
+    "html2text",
 ]
 
 [project.scripts]

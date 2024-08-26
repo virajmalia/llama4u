@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from langchain.pydantic_v1 import Field
 from langchain_core.runnables import RunnableLambda
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain_community.document_transformers.html2text import Html2TextTransformer
 from langserve import CustomUserType
 from langserve.server import add_routes
 from app.src.llama4u import Llama4U
@@ -35,14 +34,12 @@ class ChatHistory(CustomUserType):
 
 async def get_response_from_docs(url):
     """ Get a response from a URL page content """
-    doc_reader = DocReader(llama4u.llm, url=url)
-    crawled_data = await doc_reader.crawl_and_load(url)
+    doc_reader = DocReader(llama4u.llm, base_url=url)
+    docs = await doc_reader.process_documentation()
 
-    h2t = Html2TextTransformer()
-    t_docs = h2t.transform_documents(crawled_data)
-    doc_reader.create_db(t_docs)
+    doc_reader.create_db(docs)
     return doc_reader.docs_retriever.invoke( # type: ignore
-        input='Read each word carefully and \
+        input='Read carefully and \
             find the relevance with programming and APIs. \
             Summarize the document such that it can be used \
             as a context for future conversations.')
@@ -88,7 +85,6 @@ add_routes(
     app,
     chat_model.with_types(
         input_type=ChatHistory,
-        output_type=ChatHistory,
         ).with_config(
             configurable={"doc_url": "doc_url"}),
     config_keys=["configurable", "doc_url"],

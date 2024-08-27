@@ -26,7 +26,6 @@ dependencies = [
     "lark",
     "termcolor",
     "playwright",
-    "html2text",
 ]
 
 [project.scripts]
